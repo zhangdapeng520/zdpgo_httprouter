@@ -28,8 +28,8 @@ func ResponseSuccess(w http.ResponseWriter, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// 将字段转换为JSON
-	jsonBytes, err := json.Marshal(successResult)
 	successResult.Data = data
+	jsonBytes, err := json.Marshal(successResult)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return

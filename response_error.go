@@ -45,3 +45,38 @@ func ResponseError404(w http.ResponseWriter, data interface{}) {
 	// 返回JSON信息
 	fmt.Fprint(w, string(jsonBytes))
 }
+
+func ResponseError(w http.ResponseWriter, code int, message string, data interface{}) {
+	// 声明返回的是JSON数据
+	w.Header().Set("Content-Type", "application/json")
+
+	// 构造错误信息
+	result := ErrorResult{
+		Code:    code,
+		Status:  false,
+		Message: message,
+		Data:    data,
+	}
+
+	// 将字段转换为JSON
+	jsonBytes, err := json.Marshal(result)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+
+	// 返回JSON信息
+	fmt.Fprint(w, string(jsonBytes))
+}
+
+func ResponseError500(w http.ResponseWriter, data interface{}) {
+	ResponseError(w, 10500, "server error", data)
+}
+
+func ResponseError401(w http.ResponseWriter, data interface{}) {
+	ResponseError(w, 10401, "auth error", data)
+}
+
+func ResponseError402(w http.ResponseWriter, data interface{}) {
+	ResponseError(w, 10402, "params error", data)
+}

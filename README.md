@@ -393,3 +393,7 @@ frameworks building upon the HttpRouter package:
 ### v0.1.3
 
 - 增加404统一错误信息返回
+
+### v0.1.4
+
+- 优化统一返回值类型
